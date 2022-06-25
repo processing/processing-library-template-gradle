@@ -1,9 +1,8 @@
 // Use this package name when debugging from IntelliJ
-package main.java.gsoc.ml;
+package main.java.ml.model;
 
 // Use this package name when building with gradle to release the library
-//package gsoc.ml;
-
+//package ml.model;s
 import processing.core.*;
 import org.tensorflow.*;
 
@@ -15,7 +14,7 @@ import org.tensorflow.*;
  * (the tag example followed by the name of an example included in folder 'examples' will
  * automatically include the example in the javadoc.)
  *
- * @example Hello 
+ * @example HelloML4Processing
  */
 
 public class MLTest {
@@ -59,7 +58,7 @@ public class MLTest {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param theA the width of test
 	 * @param theB the height of test
 	 */
@@ -68,7 +67,7 @@ public class MLTest {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getVariable() {
