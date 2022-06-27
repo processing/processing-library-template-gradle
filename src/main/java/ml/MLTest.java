@@ -1,10 +1,11 @@
 // Use this package name when debugging from IntelliJ
-package main.java.ml.model;
+// package main.java.ml.model;
 
 // Use this package name when building with gradle to release the library
-//package ml.model;s
+package ml;
+
 import processing.core.*;
-import org.tensorflow.*;
+// import org.tensorflow.*;
 
 /**
  * This is a template class and can be used to start a new processing Library.
@@ -46,7 +47,8 @@ public class MLTest {
 	
 	
 	public String getTensorFlowVersion() {
-		return TensorFlow.version();
+		// return TensorFlow.version();
+		return "";
 	}
 	/**
 	 * return the version of the Library.
