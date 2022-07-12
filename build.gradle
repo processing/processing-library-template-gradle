@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'java-library'
-    // id 'org.bytedeco.gradle-javacpp-platform' version "1.5.7"
 }
 
 group "$packageName"
@@ -31,46 +30,8 @@ dependencies {
     // Processing jars from installed application package
     implementation fileTree(include: ["core.jar", "jogl-all-main.jar", "gluegen-rt-main.jar"], dir: "$classpathLocalLocation")
 
-    // processing 3 deps
-    // processing group: 'org.processing', name: 'core', version: '3.3.7'
-    // processing group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
-    // processing group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: '2.3.2'
-
-    // test??
-    // testImplementation group: 'junit', name: 'junit', version: '4.11'
-    // testImplementation 'com.github.cansik:webcam-capture-processing:8f1ea8d38d'
-
-    // tensorflow
-    // implementation group: 'org.tensorflow', name: 'tensorflow-core-platform', version: '0.4.1'
-
-    implementation group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jVersion"
-
-    // DLJ
-    implementation group: 'ai.djl', name: 'api', version: '0.17.0'
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-api', version: "$djlVersion"
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-engine', version: "$djlVersion"
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-model-zoo', version: "$djlVersion"
-        
-    // DLJ tensorflow engine: http://djl.ai/engines/tensorflow/tensorflow-engine/
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cpu', version: "$djlTensorflowNativeVersion"
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cpu', version: "$djlTensorflowNativeVersion", classifier: 'osx-x86_64'
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cpu', version: "$djlTensorflowNativeVersion", classifier: 'linux-x86_64'
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cpu', version: "$djlTensorflowNativeVersion", classifier: 'win-x86_64'
-
-    // DJL MXNet engine
-    implementation group: 'ai.djl.mxnet', name: 'mxnet-engine', version: "$djlVersion"
-    implementation group: 'ai.djl.mxnet', name: 'mxnet-model-zoo', version: "$djlVersion"
-
-    // GPU support
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cu113', version: "$djlTensorflowNativeVersion", classifier: 'linux-x86_64'
-    implementation group: 'ai.djl.tensorflow', name: 'tensorflow-native-cu113', version: "$djlTensorflowNativeVersion", classifier: 'win-x86_64'    
-    
-    // deep java library
-    // implementation fileTree(include: ["api-0.17.0.jar", "tensorflow-engine-0.17.0.jar",
-    //                                   "commons-compress-1.21.jar", "tensorflow-model-zoo-0.17.0.jar",
-    //                                   "gson-2.9.0.jar", "tensorflow-native-cpu-2.7.0-osx-x86_64.jar",
-    //                                   "jna-5.11.0.jar", "tensorflow-native-cpu-2.7.0.jar",
-    //                                   "slf4j-api-2.0.0-alpha7.jar"], dir: 'djl-libs')
+    // External dependencies available on any of the lister repositories above can be incorported as below:
+    implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 }
 
 // add processing library support

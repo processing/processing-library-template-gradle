@@ -1,7 +1,6 @@
-package ml;
+package template.library;
 
 import processing.core.*;
-// import org.tensorflow.*;
 
 /**
  * This is a template class and can be used to start a new processing Library.
@@ -11,10 +10,10 @@ import processing.core.*;
  * (the tag example followed by the name of an example included in folder 'examples' will
  * automatically include the example in the javadoc.)
  *
- * @example HelloML4Processing
+ * @example Hello 
  */
 
-public class MLTest {
+public class HelloLibrary {
 	
 	// myParent is a reference to the parent sketch
 	PApplet myParent;
@@ -31,20 +30,19 @@ public class MLTest {
 	 * @example Hello
 	 * @param theParent the parent PApplet
 	 */
-	public MLTest(PApplet theParent) {
+	public HelloLibrary(PApplet theParent) {
 		myParent = theParent;
 		welcome();
 	}
 	
 	
 	private void welcome() {
-		System.out.println("ML4Processing 0.0.1 by Jeongin Lee");
+		System.out.println("##library.name## ##library.prettyVersion## by ##author##");
 	}
 	
 	
-	public String getTensorFlowVersion() {
-		// return TensorFlow.version();
-		return "";
+	public String sayHello() {
+		return "hello library.";
 	}
 	/**
 	 * return the version of the Library.
@@ -56,7 +54,7 @@ public class MLTest {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param theA the width of test
 	 * @param theB the height of test
 	 */
@@ -65,7 +63,7 @@ public class MLTest {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getVariable() {
