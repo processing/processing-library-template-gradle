@@ -1,8 +1,22 @@
 // This script adds processing library build support to gradle.
+
 def releaseRoot = "$rootDir/release"
 
 def releaseName = "$projectName-$version"
 def releaseDirectory = "$releaseRoot/$releaseName"
+
+// Replace the properties in the source files
+task processSource(type: Sync) {
+    from sourceSets.main.java
+    filter { String line -> line.replaceAll("##library.prettyVersion##", "$propertiesPrettyVersion") }
+    filter { String line -> line.replaceAll("##library.name##", "$propertiesName") } 
+    filter { String line -> line.replaceAll("##author##", "$propertiesAuthors") } 
+    into "$buildDir/src"
+}
+
+compileJava {
+    source = processSource.outputs
+}
 
 task releaseProcessingLib {
     dependsOn {
@@ -20,10 +34,6 @@ task releaseProcessingLib {
         // printing current jvm
         def currentJvm = org.gradle.internal.jvm.Jvm.current()
         println currentJvm
-
-        // if (project.hasProperty("cuda")) {
-        //     println "CUDA support enabled!"
-        // }
 
         println("cleaning release...")
         project.delete(files(
@@ -48,7 +58,7 @@ task releaseProcessingLib {
             into "$releaseDirectory/library"
         }
 
-        // Need to delete the Processing jar explicitly, at least when including them as fileTree dependencies
+        // Need to delete the Processing jars explicitly, at least when including them as fileTree dependencies
         delete "$releaseDirectory/library/core.jar"
         delete "$releaseDirectory/library/jogl-all-main.jar"
         delete "$releaseDirectory/library/gluegen-rt-main.jar"            
