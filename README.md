@@ -58,3 +58,7 @@ public class HelloTest extends PApplet {
 ```
 
 Please note that any file read from the IntelliJ program should be placed inside the subdirectory ```data``` located inside the root of the IntelliJ project (i.e.: ```lib-dev/data```)
+
+## Contributors
+
+This template is based on the [Deep Vision Library](https://github.com/cansik/deep-vision-processing) by [Florian Bruggisser](https://github.com/cansik), and was created as part of [Jeongin Lee](https://github.com/jjeongin)'s [Machine Learning Library](https://github.com/jjeongin/ml4processing) project during during Google Summer of Code 2022.
