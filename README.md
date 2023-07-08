@@ -35,15 +35,17 @@ The library can be imported as an IntelliJ project following the steps below:
 - Clone this repo and build the library following the instructions in the previous section
 - Clone the [processing4 repo](https://github.com/processing/processing4)
 - Create new project in IntelliJ with the name and location of your choice, for example ```lib-dev```
-- Create new module in the project for core Processing, using as content root and the module file location the ```core``` folder under the processing4 repo. As "JARs or Directory" dependency, add ```<path to processing4 repo>/core/library```
+- Create new module in the project for core Processing, using as content root and the module file location the ```core``` folder under the processing4 repo. As "JARs or Directory" dependency, add ```<path to processing4 repo>/core/library```. Make sure to use IntelliJ as the Build System.
 - Create another module in the project, this time for YourLibrary. Use the YourLibrary's root folder as the content root and module file location. Add the processing-core module as module dependency for this module, and the ```libs``` subdirectory inside the YourLibrary directory (it should have been created during library building step) as its "JARs or Directory" dependency
 - Add the proccessing-core and YourLibrary modules as dependencies in the main module of the project (```lib-dev```)
 - You can now create a test program in under the main module of the project:
 
 ```
 import processing.core.*;
+import template.library.*;
 
 public class HelloTest extends PApplet {
+    HelloLibrary hello;
 
     public void settings() {
         size(parseInt(args[0]), parseInt(args[1]));
@@ -52,7 +54,7 @@ public class HelloTest extends PApplet {
 
     public void setup() {
         hello = new HelloLibrary(this);
-  
+
         PFont font = createFont("Arial", 40);
         textFont(font);
     }
@@ -64,7 +66,7 @@ public class HelloTest extends PApplet {
     }
 
     static public void main(String[] args) {
-        PApplet.main(DetectTest.class, "400", "400");
+        PApplet.main(HelloTest.class, "400", "400");
     }
 }
 ```
