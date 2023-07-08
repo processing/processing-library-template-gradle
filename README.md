@@ -36,9 +36,10 @@ The library can be imported as an IntelliJ project following the steps below:
 - Clone the [processing4 repo](https://github.com/processing/processing4)
 - Create new project in IntelliJ with the name and location of your choice, for example ```lib-dev```
 - Create new module in the project for core Processing, using as content root and the module file location the ```core``` folder under the processing4 repo. As "JARs or Directory" dependency, add ```<path to processing4 repo>/core/library```. Make sure to use IntelliJ as the Build System.
-- Create another module in the project, this time for YourLibrary. Use the YourLibrary's root folder as the content root and module file location. Add the processing-core module as module dependency for this module, and the ```libs``` subdirectory inside the YourLibrary directory (it should have been created during library building step) as its "JARs or Directory" dependency
-- Add the proccessing-core and YourLibrary modules as dependencies in the main module of the project (```lib-dev```)
-- You can now create a test program in under the main module of the project:
+- Create another module in the project, this time for YourLibrary. Use the YourLibrary's root folder as the content root and module file location. Add the processing-core module as module dependency for this module.
+- Add the proccessing-core and YourLibrary modules as dependencies in the main module of the project (```lib-dev```). 
+- Add the ```libs``` subdirectory inside the YourLibrary directory (it should have been created during library building step) as a "JARs or Directory" dependency of the main module.
+- You can now create a test program in under src folder of the main module of the project:
 
 ```
 import processing.core.*;
@@ -70,6 +71,8 @@ public class HelloTest extends PApplet {
     }
 }
 ```
+
+You should be able to run the program from the IntelliJ IDE.
 
 Please note that any file read from the IntelliJ program should be placed inside the subdirectory ```data``` located inside the root of the IntelliJ project (i.e.: ```lib-dev/data```)
 
