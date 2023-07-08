@@ -2,15 +2,15 @@
 
 def releaseRoot = "$rootDir/release"
 
-def releaseName = "$projectName-$version"
+def releaseName = "$libName-$version"
 def releaseDirectory = "$releaseRoot/$releaseName"
 
 // Replace the properties in the source files
 task processSource(type: Sync) {
     from sourceSets.main.java
-    filter { String line -> line.replaceAll("##library.prettyVersion##", "$propertiesPrettyVersion") }
-    filter { String line -> line.replaceAll("##library.name##", "$propertiesName") } 
-    filter { String line -> line.replaceAll("##author##", "$propertiesAuthors") } 
+    filter { String line -> line.replaceAll("##library.prettyVersion##", "$libPrettyVersion") }
+    filter { String line -> line.replaceAll("##library.name##", "$libName") } 
+    filter { String line -> line.replaceAll("##author##", "$libAuthors") } 
     into "$buildDir/src"
 }
 
@@ -29,9 +29,9 @@ task releaseProcessingLib {
     finalizedBy 'packageRelease', 'renameRelease'
 
     doFirst {
-        println "releasing library $projectName..."
+        println "releasing library $libName..."
 
-        // printing current jvm
+        // Printing current jvm to the console
         def currentJvm = org.gradle.internal.jvm.Jvm.current()
         println currentJvm
 
@@ -48,7 +48,7 @@ task releaseProcessingLib {
 
         println "copy library..."
         project.copy {
-            from "$buildDir/libs/${projectName}.jar"
+            from "$buildDir/libs/${libName}.jar"
             into "$releaseDirectory/library"
         }
 
@@ -69,7 +69,7 @@ task releaseProcessingLib {
                 include "*.jar"
             }
             into "libs"
-            exclude "${projectName}.jar"
+            exclude "${libName}.jar"
         }
 
         println "copy assets (only if necessary)..."
@@ -101,7 +101,7 @@ task releaseProcessingLib {
         }
 
         println "copy repository library.txt..."
-        copyProperties("$releaseRoot", "${projectName}.txt")
+        copyProperties("$releaseRoot", "${libName}.txt")
 
         println "copy repository library.properties..."
         copyProperties("$releaseDirectory", "library.properties")
@@ -109,7 +109,7 @@ task releaseProcessingLib {
         if (project.hasProperty("sketchbookLocation")) {
             println "copy to sketchbook..."
             def sketchbookAbsolutePath = sketchbookLocation.replace("\${user.home}", System.properties['user.home'])
-            def installDirectory = "$sketchbookAbsolutePath/libraries/$projectName"
+            def installDirectory = "$sketchbookAbsolutePath/libraries/$libName"
             project.copy {
                 from("$releaseDirectory") {
                     include "library.properties",
@@ -125,20 +125,20 @@ task releaseProcessingLib {
 
     ext.copyProperties = { destDirectory, destFilename ->
         project.copy {
-            from "$rootDir/library.properties"
+            from "$rootDir/resources/library.properties"
             into "$destDirectory"
             rename "library.properties", "$destFilename"
 
-            filter { String line -> line.replaceAll("name=", "name=$propertiesName") }
-            filter { String line -> line.replaceAll("category=", "category=$propertiesCategory") }
-            filter { String line -> line.replaceAll("authors=", "authors=$propertiesAuthors") }
-            filter { String line -> line.replaceAll("url=", "url=$propertiesUrl") }
-            filter { String line -> line.replaceAll("sentence=", "sentence=$propertiesSentence") }
-            filter { String line -> line.replaceAll("paragraph=", "paragraph=$propertiesParagraph") }
-            filter { String line -> line.replaceAll("version=", "version=$propertiesVersion") }
-            filter { String line -> line.replaceAll("prettyVersion=", "prettyVersion=$propertiesPrettyVersion") }
-            filter { String line -> line.replaceAll("minRevision=", "minRevision=$propertiesMinRevision") }
-            filter { String line -> line.replaceAll("maxRevision=", "maxRevision=$propertiesMaxRevision") }
+            filter { String line -> line.replaceAll("name=##library.name##", "name=$libPrettyName") }
+            filter { String line -> line.replaceAll("authors=##library.authorList##", "authors=$libAuthors") }
+            filter { String line -> line.replaceAll("url=##library.url##", "url=$libUrl") }
+            filter { String line -> line.replaceAll("categories=##library.categories##", "category=$libCategory") }
+            filter { String line -> line.replaceAll("sentence=##library.sentence##", "sentence=$libSentence") }
+            filter { String line -> line.replaceAll("paragraph=##library.paragraph##", "paragraph=$libParagraph") }
+            filter { String line -> line.replaceAll("version=##library.version##", "version=$libVersion") }
+            filter { String line -> line.replaceAll("prettyVersion=##library.prettyVersion##", "prettyVersion=$libPrettyVersion") }
+            filter { String line -> line.replaceAll("minRevision=##compatible.minRevision##", "minRevision=$compMinRevision") }
+            filter { String line -> line.replaceAll("maxRevision=##compatible.maxRevision##", "maxRevision=$compMaxRevision") }
         }
     }
 }
@@ -146,9 +146,9 @@ task releaseProcessingLib {
 task packageRelease(type: Zip) {
     mustRunAfter releaseProcessingLib
 
-    archiveFileName = "${projectName}.zip"
+    archiveFileName = "${libName}.zip"
     from "$releaseDirectory"
-    into "$projectName"
+    into "$libName"
     destinationDirectory = file("$releaseRoot")
     exclude "**/*.DS_Store"
 }

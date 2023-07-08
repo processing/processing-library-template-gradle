@@ -5,7 +5,17 @@ The following describes how to set up a Processing Library project in [Gradle](h
 ## Build
 - First, install [Adoptium OpenJDK 17](https://adoptium.net/) (required by Processing 4+)
 
-Run gradle to build a new release package under `/release/YourLibrary.zip`:
+Run the included gradle wrapper command to compile the source code:
+
+```bash
+# windows
+gradlew.bat compileJava
+
+# mac / unix
+./gradlew compileJava
+```
+
+To build a new release package under `/release/YourLibrary.zip`, use:
 
 ```bash
 # windows
@@ -14,6 +24,8 @@ gradlew.bat releaseProcessingLib
 # mac / unix
 ./gradlew releaseProcessingLib
 ```
+
+If you have Gradle installed in your sustem, you can replace ```gradlew``` with ```gradle``` in the commands above.
 
 ## Developing in IntelliJ IDEA
 
