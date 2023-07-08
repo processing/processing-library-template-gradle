@@ -59,11 +59,11 @@ task releaseProcessingLib {
         }
 
         // Need to delete the Processing jars explicitly, at least when including them as fileTree dependencies
-        delete "$releaseDirectory/library/core.jar"
-        delete "$releaseDirectory/library/jogl-all-main.jar"
-        delete "$releaseDirectory/library/gluegen-rt-main.jar"            
+        for (lib in includeDeps) {
+          delete "$releaseDirectory/library/$lib"
+        }
 
-        println "copy libraries..."
+        println "Copy libraries..."
         project.copy {
             from("$releaseDirectory/library") {
                 include "*.jar"
@@ -72,7 +72,7 @@ task releaseProcessingLib {
             exclude "${libName}.jar"
         }
 
-        println "copy assets (only if necessary)..."
+        println "Copy assets..."
         project.copy {
             from("$rootDir") {
                 include "shaders/**",
@@ -82,13 +82,13 @@ task releaseProcessingLib {
             exclude "*.DS_Store"
         }
 
-        println "copy javadoc..."
+        println "Copy javadoc..."
         project.copy {
             from "$buildDir/docs/javadoc"
             into "$releaseDirectory/reference"
         }
 
-        println "copy additional files..."
+        println "Copy additional files..."
         project.copy {
             from("$rootDir") {
                 include "README.md",
@@ -100,16 +100,15 @@ task releaseProcessingLib {
             exclude "*.DS_Store", "**/networks/**"
         }
 
-        println "copy repository library.txt..."
+        println "Copy repository library.txt..."
         copyProperties("$releaseRoot", "${libName}.txt")
 
-        println "copy repository library.properties..."
+        println "Copy repository library.properties..."
         copyProperties("$releaseDirectory", "library.properties")
 
         if (project.hasProperty("sketchbookLocation")) {
-            println "copy to sketchbook..."
-            def sketchbookAbsolutePath = sketchbookLocation.replace("\${user.home}", System.properties['user.home'])
-            def installDirectory = "$sketchbookAbsolutePath/libraries/$libName"
+            println "Copy to sketchbook..."
+            def installDirectory = "$sketchbookLocation/libraries/$libName"
             project.copy {
                 from("$releaseDirectory") {
                     include "library.properties",
@@ -129,6 +128,9 @@ task releaseProcessingLib {
             into "$destDirectory"
             rename "library.properties", "$destFilename"
 
+            // First remove comment or empty lines
+            filter { String line -> return line.startsWith("#") || !line.strip() ? null : line }
+
             filter { String line -> line.replaceAll("name=##library.name##", "name=$libPrettyName") }
             filter { String line -> line.replaceAll("authors=##library.authorList##", "authors=$libAuthors") }
             filter { String line -> line.replaceAll("url=##library.url##", "url=$libUrl") }
@@ -143,7 +145,7 @@ task releaseProcessingLib {
     }
 }
 
-task packageRelease(type: Zip) {
+task packageRelease(type: Zip) {    
     mustRunAfter releaseProcessingLib
 
     archiveFileName = "${libName}.zip"
