@@ -69,7 +69,6 @@ task releaseProcessingLib {
                 include "*.jar"
             }
             into "libs"
-            exclude "${libName}.jar"
         }
 
         println "Copy assets..."
