@@ -69,10 +69,6 @@ allprojects {
             dirs 'lib'
         }
     }
-
-    println("**********")
-    println(installedDeps)
-    println("   ")
 }
 
 javadoc {
