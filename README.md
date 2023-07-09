@@ -25,25 +25,25 @@ gradlew.bat releaseProcessingLib
 ./gradlew releaseProcessingLib
 ```
 
-If you have Gradle installed in your sustem, you can replace ```gradlew``` with ```gradle``` in the commands above.
+If you have Gradle installed in your system, you can replace ```gradlew``` with ```gradle``` in the commands above.
 
 ## Developing in IntelliJ IDEA
 
 The library can be imported as an IntelliJ project following the steps below:
 
-- Download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
-- Clone this repo and build the library following the instructions in the previous section
-- Clone the [processing4 repo](https://github.com/processing/processing4)
-- Create new project in IntelliJ with the name and location of your choice, for example ```lib-dev```
-- Create new module in the project for core Processing, using as content root and the module file location the ```core``` folder under the processing4 repo. As "JARs or Directory" dependency, add ```<path to processing4 repo>/core/library```. Make sure to use IntelliJ as the Build System.
-- Create another module in the project, this time for YourLibrary. Use the YourLibrary's root folder as the content root and module file location. Add the processing-core module as module dependency for this module.
-- Add the proccessing-core and YourLibrary modules as dependencies in the main module of the project (```lib-dev```). 
-- Add the ```libs``` subdirectory inside the YourLibrary directory (it should have been created during library building step) as a "JARs or Directory" dependency of the main module.
-- You can now create a test program in under src folder of the main module of the project:
+- Download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
+- Clone this repo and build the library following the instructions in the previous section.
+- Clone the [processing4 repo](https://github.com/processing/processing4).
+- Create a new project in IntelliJ with the name and location of your choice, for example ```lib-dev```. This project is where you can create new Processing examples to test your library.
+- Create a new module in the project to import the core of Processing, for example in a name ```processing-core```, using the ```core``` folder under the processing4 repo as the content root and module file location. As "JARs or Directory" dependency of this module, add ```<path to processing4 repo>/core/library```. Make sure to use IntelliJ as the Build System.
+- Create another module in the project, this time for ```YourLibrary```. This is the Processing library project you have been working on, in this case, this repository. Use the root folder of ```YourLibrary```, or ```processing-library-template-gradle```, as the content root and module file location. Add the ```processing-core``` module as a module dependency for this module.
+- Add the ```processing-core``` and ```YourLibrary``` modules as module dependencies to the main module of the project (```lib-dev```). 
+- Add the ```libs``` subdirectory inside the ```YourLibrary``` directory (it should have been created during the library building step in the above section) as a "JARs or Directory" dependency of the main module, ```lib-dev```.
+- You can now create a test program under the ```src``` folder of the main module of the ```liv-dev``` project:
 
 ```
-import processing.core.*;
-import template.library.*;
+import processing.core.*; // import processing core
+import template.library.*; // import sample library
 
 public class HelloTest extends PApplet {
     HelloLibrary hello;
