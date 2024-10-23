@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repository is deprecated. Please use the latest Gradle template at [processing/processing-library-template](https://github.com/processing/processing-library-template).
+
 # Gradle/IntelliJ template for Processing library 
 
 The following describes how to set up a Processing library project in [Gradle](https://gradle.org/), build it successfully, use [IntelliJ IDEA](https://www.jetbrains.com/idea/) for development/debugging of the library, and to make your library ready for distribution.
